@@ -27,10 +27,14 @@ app.use('/protected', authenticateToken);
 const authRoutes = require('./src/routes/authRoutes.js');
 const userRoutes = require('./src/routes/userRoutes.js');
 const postRoutes = require('./src/routes/postRoutes.js');
+const messageRoutes = require('./src/routes/messageRoutes.js');
+const conversationRoutes = require('./src/routes/conversationRoutes.js');
 
 app.use('/auth', authRoutes);
 app.use('/protected/users', userRoutes);
 app.use('/protected/posts', postRoutes);
+app.use('/protected/message', messageRoutes);
+app.use('/protected/conversation', conversationRoutes);
 
 const port = process.env.PORT || 3000;
 
