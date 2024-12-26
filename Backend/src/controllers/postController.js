@@ -19,8 +19,8 @@ const createPost = async (req, res) => {
 // Get All Posts
 const getAllPosts = async (req, res) => {
   try {
-    const { accessToken, refreshToken } = req.user; // Get tokens from req.user
-    const loggedInUserID = req.user._id; // Assuming logged-in user ID is available in req.user
+    const { accessToken, refreshToken } = req.user;
+    const loggedInUserID = req.user.id;
     const posts = await postService.getAllPosts(loggedInUserID);
     if (!posts || posts.length === 0) {
       return res.sendResponse(404, false, 'No posts found');
@@ -87,6 +87,34 @@ const deletePost = async (req, res) => {
   }
 };
 
+// Add Like to Post
+const addLikeToPost = async (req, res) => {
+  try {
+    const { accessToken, refreshToken } = req.user;
+    const { id } = req.user;
+    const { postID } = req.params;
+
+    const result = await postService.addLike(id, postID);
+    res.sendResponse(200, true, result.message, null, { accessToken, refreshToken });
+  } catch (error) {
+    res.sendResponse(500, false, error.message);
+  }
+};
+
+// Remove Like from Post
+const removeLikeFromPost = async (req, res) => {
+  try {
+    const { accessToken, refreshToken } = req.user;
+    const { id } = req.user;
+    const { postID } = req.params;
+
+    const result = await postService.removeLike(id, postID);
+    res.sendResponse(200, true, "Like Removed", null, { accessToken, refreshToken });
+  } catch (error) {
+    res.sendResponse(500, false, error.message);
+  }
+};
+
 module.exports = {
   createPost,
   getAllPosts,
@@ -94,4 +122,6 @@ module.exports = {
   getPostsByUserId,
   updatePost,
   deletePost,
+  addLikeToPost,
+  removeLikeFromPost,
 };

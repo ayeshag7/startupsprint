@@ -19,7 +19,6 @@ const getAllPosts = async (loggedInUserID) => {
   if (!posts || posts.length === 0) {
     throw new Error('No posts found');
   }
-
   // For each post, check if the logged-in user has liked it
   const postsWithLikeStatus = await Promise.all(posts.map(async (post) => {
     const likedPost = await PostLike.findOne({
@@ -36,6 +35,7 @@ const getAllPosts = async (loggedInUserID) => {
       },
       posttext: post.posttext,
       postphoto: post.postphoto,
+      likecount:post.likecount,
       privacy: post.privacy,
       updatedAt: post.updatedAt,
       liked: likedPost ? true : false,
@@ -81,6 +81,32 @@ const deletePost = async (id) => {
   return deletedPost;
 };
 
+// Add Like to Post
+const addLike = async (userID, postID) => {
+  const existingLike = await PostLike.findOne({ userID, postID });
+  if (existingLike) {
+    return { message: 'Post already liked.' };
+  }
+  const newLike = new PostLike({ userID, postID });
+  await newLike.save();
+
+  await Post.findByIdAndUpdate(postID, { $inc: { likecount: 1 } });
+
+  return { message: 'Post liked successfully' };
+};
+
+// Remove Like from Post
+const removeLike = async (userID, postID) => {
+  const existingLike = await PostLike.findOne({ userID, postID });
+  if (!existingLike) {
+    throw new Error('You have not liked this post yet');
+  }
+  await PostLike.findByIdAndDelete(existingLike._id);
+  await Post.findByIdAndUpdate(postID, { $inc: { likecount: -1 } });
+
+  return { message: 'Post unliked successfully' };
+};
+
 module.exports = {
   createPost,
   getAllPosts,
@@ -88,4 +114,6 @@ module.exports = {
   getPostsByUserId,
   updatePost,
   deletePost,
+  addLike,
+  removeLike,
 };

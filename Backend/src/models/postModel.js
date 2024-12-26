@@ -16,6 +16,11 @@ const postSchema = mongoose.Schema(
       default: '',
       required: false,
     },
+    likecount: {
+      type: Number,
+      default: 0,
+      required: false,
+    },
     privacy: {
       type: String,
       default: 'Everyone',
