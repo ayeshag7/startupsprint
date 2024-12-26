@@ -5,7 +5,17 @@ const responseHandler = require('./src/middlewares/responseHandler.js');
 const authenticateToken = require('./src/middlewares/authToken.js');
 const cors = require('./src/middlewares/cors.js');
 const logger = require('./src/middlewares/logger.js');
+const http = require('http');
+const { Server } = require('socket.io');
 const app = express();
+const server = http.createServer(app);
+const io = new Server(server, {
+    cors: {
+        origin: ['http://localhost:5173'],
+        methods: ['GET', 'POST'],
+        credentials: true,
+    },
+})
 
 app.use(express.json());
 app.use(cors);
@@ -24,7 +34,20 @@ app.use('/protected/posts', postRoutes);
 
 const port = process.env.PORT || 3000;
 
-app.listen(port, () => {
+// Socket.io Connection and Event Handling
+io.on('connection', (socket) => {
+    console.log('A user connected:', socket.id);
+
+    socket.on('chat message', (data) => {
+        io.emit('chat message', data);
+    });
+    
+    socket.on('disconnect', () => {
+        console.log('User disconnected:', socket.id);
+    });
+});
+
+server.listen(port, () => {
     dbConnect();
-    console.log(`Server Running at Port ${port}`);
+    console.log("Server Running at Port", port);
 });
