@@ -29,12 +29,14 @@ const userRoutes = require('./src/routes/userRoutes.js');
 const postRoutes = require('./src/routes/postRoutes.js');
 const messageRoutes = require('./src/routes/messageRoutes.js');
 const conversationRoutes = require('./src/routes/conversationRoutes.js');
+const investmentRoutes = require('./src/routes/investmentRoutes.js');
 
 app.use('/auth', authRoutes);
 app.use('/protected/users', userRoutes);
 app.use('/protected/posts', postRoutes);
 app.use('/protected/message', messageRoutes);
 app.use('/protected/conversation', conversationRoutes);
+app.use('/protected/investment', investmentRoutes);
 
 const port = process.env.PORT || 3000;
 

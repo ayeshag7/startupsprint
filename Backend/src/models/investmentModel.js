@@ -9,7 +9,7 @@ const investmentSchema = mongoose.Schema(
     startupID: {
         type: mongoose.Schema.Types.ObjectId,
         ref:"Startup"
-},
+    },
     investment: {
       type: String,
       required: true,
