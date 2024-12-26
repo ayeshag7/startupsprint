@@ -11,6 +11,9 @@ app.use(cors);
 app.use(logger);
 app.use(responseHandler);
 
+const userRoutes = require('./src/routes/userRoutes.js');
+
+app.use('/protected/users', userRoutes);
 
 const port = process.env.PORT || 3000;
 
