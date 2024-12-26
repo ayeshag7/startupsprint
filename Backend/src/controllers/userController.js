@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+// controllers/userController.js
+=======
 // controllers/userController.js
 const userService = require('../services/userService');
 
@@ -78,3 +81,4 @@ module.exports = {
   updateUser,
   deleteUser,
 };
+>>>>>>> 50a3b3fe5d2982f46a8b02163c5353d9808888e8
