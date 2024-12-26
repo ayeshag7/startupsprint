@@ -1,19 +1,35 @@
 // controllers/postController.js
 const postService = require('../services/postService');
+const { uploadToS3, uploadMiddleware, deleteFromS3 } = require('../services/s3BucketService');
+
+const FolderNames = {
+  POSTS: "posts",
+};
 
 // Create Post
 const createPost = async (req, res) => {
-  try {
-    const { accessToken, refreshToken } = req.user;
-    const postData = { ...req.body, userID: req.user.id };
-    const post = await postService.createPost(postData);
-    if (!post) {
-      return res.sendResponse(500, false, 'Post creation failed');
+  uploadMiddleware(req, res, async (err) => {
+    if (err) {
+      console.error('Error uploading file:', err);
+      return res.status(500).json({ success: false, error: { message: 'Image upload failed', details: err.message } });
     }
-    res.sendResponse(201, true, 'Post created successfully', post, { accessToken, refreshToken });
-  } catch (error) {
-    res.sendResponse(500, false, error.message);
-  }
+
+    try {
+      const { accessToken, refreshToken } = req.user;
+      const imageUrl = await uploadToS3(req.file, FolderNames.POSTS);
+      const postData = { ...req.body, userID: req.user.id };
+      postData.postphoto = imageUrl
+      const post = await postService.createPost(postData);
+      if (!post) {
+        return res.sendResponse(500, false, 'Post creation failed');
+      }
+      res.sendResponse(201, true, 'Post created successfully', post, { accessToken, refreshToken });
+    } catch (error) {
+      res.sendResponse(500, false, error.message);
+    }
+
+  })
+
 };
 
 // Get All Posts
