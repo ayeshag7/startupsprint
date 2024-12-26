@@ -1,14 +1,23 @@
-require('dotenv').config(); // Load environment variables from a .env file
-const express = require('express'); // Import Express
-const app = express(); // Create an instance of Express
+require('dotenv').config();
+const express = require('express');
+const dbConnect = require('./src/utils/dbConnect.js');
+const responseHandler = require('./src/middlewares/responseHandler.js');
+const cors = require('./src/middlewares/cors.js');
+const logger = require('./src/middlewares/logger.js');
+const app = express();
 
-// Middleware to parse incoming JSON requests
 app.use(express.json());
+app.use(cors);
+app.use(logger);
+app.use(responseHandler);
 
-// Define the port using an environment variable or default to 3000
+const userRoutes = require('./src/routes/userRoutes.js');
+
+app.use('/protected/users', userRoutes);
+
 const port = process.env.PORT || 3000;
 
-// Start the server
 app.listen(port, () => {
+    dbConnect();
     console.log(`Server Running at Port ${port}`);
 });
