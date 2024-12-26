@@ -1,14 +1,14 @@
-require('dotenv').config(); // Load environment variables from a .env file
-const express = require('express'); // Import Express
-const app = express(); // Create an instance of Express
+require('dotenv').config();
+const express = require('express');
+const dbConnect = require('./src/utils/dbConnect.js');
+const app = express();
 
-// Middleware to parse incoming JSON requests
 app.use(express.json());
 
-// Define the port using an environment variable or default to 3000
+
 const port = process.env.PORT || 3000;
 
-// Start the server
 app.listen(port, () => {
+    dbConnect();
     console.log(`Server Running at Port ${port}`);
 });
