@@ -29,6 +29,15 @@ const getUserById = async (id) => {
   return user;
 };
 
+// Get User by Email
+const getUserByEmail = async (email) => {
+  const user = await User.findOne({ email });
+  if (!user) {
+    throw new Error(`User with email ${email} not found`);
+  }
+  return user;
+};
+
 // Update User
 const updateUser = async (id, updateData) => {
   const updatedUser = await User.findByIdAndUpdate(id, updateData, { new: true });
@@ -51,6 +60,7 @@ module.exports = {
   createUser,
   getAllUsers,
   getUserById,
+  getUserByEmail,
   updateUser,
   deleteUser,
 };

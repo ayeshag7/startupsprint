@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const User = require('../models/userModel');
+const userService = require('../services/userService')
 const { generateAccessToken, generateRefreshToken } = require('../utils/jwtUtil');
 
 exports.createUser = async (data) => {
@@ -24,7 +25,7 @@ exports.createUser = async (data) => {
     data.username = username;
     data.password = hashedPassword;
     data.profilephoto = data.profilephoto || profilephoto;
-    const newUser = await User.create(data);
+    const newUser = await userService.createUser(data)
     
     if (!newUser) {
         throw new Error(newUser);
