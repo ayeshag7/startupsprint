@@ -6,6 +6,10 @@ const postSchema = mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
         ref:"User"
     },
+    startupID: {
+      type: mongoose.Schema.Types.ObjectId,
+        ref:"Startup"
+    },
     posttext: {
       type: String,
       required: false,
