@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-//Cors
-=======
 const cors = require('cors');
 
 const allowedOrigins = [
@@ -22,4 +19,3 @@ const corsOptions = {
 };
 
 module.exports = cors(corsOptions);
->>>>>>> 50a3b3fe5d2982f46a8b02163c5353d9808888e8

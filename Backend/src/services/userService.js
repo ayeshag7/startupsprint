@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-// services/userService.js
-=======
 // services/userService.js
 const User = require('../models/userModel');
 
@@ -57,4 +54,3 @@ module.exports = {
   updateUser,
   deleteUser,
 };
->>>>>>> 50a3b3fe5d2982f46a8b02163c5353d9808888e8

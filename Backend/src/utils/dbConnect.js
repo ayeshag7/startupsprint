@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-// DB Connect
-=======
 const mongoose = require("mongoose");
 require('dotenv').config(); 
 
@@ -14,4 +11,3 @@ const dbConnect = async () => {
 };
 
 module.exports = dbConnect;
->>>>>>> 50a3b3fe5d2982f46a8b02163c5353d9808888e8
