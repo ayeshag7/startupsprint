@@ -4,7 +4,7 @@ const userSchema = mongoose.Schema(
   {
     name: {
       type: String,
-      required: false,
+      required: true,
     },
     username: {
       type: String,
@@ -34,7 +34,7 @@ const userSchema = mongoose.Schema(
     },
     gender: {
       type: String,
-      required: false,
+      required: true,
       enum: ['Male', 'Female', 'Other'],
     },
     profilephoto: {
@@ -45,7 +45,7 @@ const userSchema = mongoose.Schema(
     role: {
       type: String,
       default: 'User',
-      required: false,
+      required: true,
     },
     otp: {
       type: String,
