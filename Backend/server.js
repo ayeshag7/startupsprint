@@ -16,9 +16,11 @@ app.use('/protected', authenticateToken);
 
 const authRoutes = require('./src/routes/authRoutes.js');
 const userRoutes = require('./src/routes/userRoutes.js');
+const postRoutes = require('./src/routes/postRoutes.js');
 
 app.use('/auth', authRoutes);
 app.use('/protected/users', userRoutes);
+app.use('/protected/posts', postRoutes);
 
 const port = process.env.PORT || 3000;
 
