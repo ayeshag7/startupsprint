@@ -34,6 +34,10 @@ const startupSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    evaluation: {
+      type: String,
+      required: true,
+    },
     links: {
         type: linkSchema,
         default: {},
