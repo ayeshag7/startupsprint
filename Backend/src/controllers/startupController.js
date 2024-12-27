@@ -1,18 +1,33 @@
 // controllers/startupController.js
 const startupService = require('../services/startupService');
+const { uploadToS3, uploadMiddleware, deleteFromS3 } = require('../services/s3BucketService');
+
+const FolderNames = {
+  POSTS: "startupprofilephotos",
+};
 
 // Create Startup
 const createStartup = async (req, res) => {
-  try {
-    const { accessToken, refreshToken } = req.user;
-    const startup = await startupService.createStartup(req.body);
-    if (!startup) {
-      return res.sendResponse(500, false, 'Startup creation failed');
+  uploadMiddleware(req, res, async (err) => {
+    if (err) {
+      console.error('Error uploading file:', err);
+      return res.status(500).json({ success: false, error: { message: 'Image upload failed', details: err.message } });
     }
-    res.sendResponse(201, true, 'Startup created successfully', startup, { accessToken, refreshToken });
-  } catch (error) {
-    res.sendResponse(500, false, error.message);
-  }
+
+    try {
+      const { accessToken, refreshToken } = req.user;
+      const imageUrl = await uploadToS3(req.file, FolderNames.POSTS);
+      const startupData = { ...req.body, userID: req.user.id };
+      startupData.profilephoto = imageUrl
+      const startup = await startupService.createStartup(req.startupData);
+      if (!startup) {
+        return res.sendResponse(500, false, 'Startup creation failed');
+      }
+      res.sendResponse(201, true, 'Startup created successfully', startup, { accessToken, refreshToken });
+    } catch (error) {
+      res.sendResponse(500, false, error.message);
+    }
+  })
 };
 
 // Get All Startups
