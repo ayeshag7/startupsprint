@@ -16,9 +16,14 @@ const createPost = async (req, res) => {
 
     try {
       const { accessToken, refreshToken } = req.user;
-      const imageUrl = await uploadToS3(req.file, FolderNames.POSTS);
       const postData = { ...req.body, userID: req.user.id };
-      postData.postphoto = imageUrl
+      if (req.file) {
+        const imageUrl = await uploadToS3(req.file, FolderNames.POSTS);
+        if (!imageUrl) {
+          return res.sendResponse(500, false, 'Error Uploading Image');
+        }
+        postData.postphoto = imageUrl
+      }
       const post = await postService.createPost(postData);
       if (!post) {
         return res.sendResponse(500, false, 'Post creation failed');

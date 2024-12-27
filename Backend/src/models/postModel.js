@@ -10,6 +10,10 @@ const postSchema = mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
         ref:"Startup"
     },
+    startupName: {
+      type: String,
+      required: false,
+    },
     posttext: {
       type: String,
       required: false,
