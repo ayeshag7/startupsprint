@@ -20,8 +20,11 @@ const getAllStartups = async (req, res) => {
   try {
     const { accessToken, refreshToken } = req.user;
     const startups = await startupService.getAllStartups();
-    if (!startups || startups.length === 0) {
+    if (!startups) {
       return res.sendResponse(404, false, 'No startups found');
+    }
+    if (startups.length === 0) {
+      return res.sendResponse(200, true, 'No startups yet', startups, { accessToken, refreshToken });
     }
     res.sendResponse(200, true, 'Startups fetched successfully', startups, { accessToken, refreshToken });
   } catch (error) {
