@@ -76,6 +76,8 @@ const getPostsByUserId = async (userId) => {
         name: post.userID.name,
         profilephoto: post.userID.profilephoto,
       },
+      startupID: post.startupID,
+      startupName: post.startupName,
       posttext: post.posttext,
       postphoto: post.postphoto,
       likecount:post.likecount,
