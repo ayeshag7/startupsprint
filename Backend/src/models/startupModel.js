@@ -55,8 +55,11 @@ const startupSchema = mongoose.Schema(
     },
     description: {
       type: String,
-      required: true,
-      minlength: 8,
+      required: false,
+    },
+    stroy: {
+      type: String,
+      required: false,
     },
     profilephoto: {
       type: String,
@@ -89,6 +92,10 @@ const startupSchema = mongoose.Schema(
       type: addressSchema,
       default: {}
     },
+    members: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User"
+    }],    
     status: {
       type: String,
       default: 'Active',
