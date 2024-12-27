@@ -1,5 +1,38 @@
 const mongoose = require('mongoose');
 
+const addressSchema = new mongoose.Schema({
+  street1: {
+    type: String,
+    default: '',
+    maxlength: 255,
+  },
+  street2: {
+    type: String,
+    default: '',
+    maxlength: 255,
+  },
+  city: {
+    type: String,
+    default: '',
+    maxlength: 100,
+  },
+  state: {
+    type: String,
+    default: '',
+    maxlength: 100,
+  },
+  zipcode: {
+    type: String,
+    default: '',
+    maxlength: 20,
+  },
+  country: {
+    type: String,
+    default: '',
+    maxlength: 100,
+  },
+});
+
 const linkSchema = mongoose.Schema({
     facebook: { type: String, default: '' },
     instagram: { type: String, default: '' },
@@ -43,6 +76,19 @@ const startupSchema = mongoose.Schema(
         default: {},
         required: false,
       },
+    type: {
+      type: String,
+      enum: ['Service', 'Product', 'Hybrid'],
+      required: false,
+    },
+    evaluation: {
+      type: String,
+      required: true,
+    },
+    address: {
+      type: addressSchema,
+      default: {}
+    },
     status: {
       type: String,
       default: 'Active',

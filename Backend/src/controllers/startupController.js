@@ -16,10 +16,12 @@ const createStartup = async (req, res) => {
 
     try {
       const { accessToken, refreshToken } = req.user;
-      const imageUrl = await uploadToS3(req.file, FolderNames.POSTS);
       const startupData = { ...req.body, userID: req.user.id };
-      startupData.profilephoto = imageUrl
-      const startup = await startupService.createStartup(req.startupData);
+      if (req.file) {
+        const imageUrl = await uploadToS3(req.file, FolderNames.POSTS);
+        startupData.profilephoto = imageUrl
+      }
+      const startup = await startupService.createStartup(startupData);
       if (!startup) {
         return res.sendResponse(500, false, 'Startup creation failed');
       }
