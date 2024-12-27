@@ -64,8 +64,8 @@ const getPostById = async (req, res) => {
 // Get Posts by User ID
 const getPostsByUserId = async (req, res) => {
   try {
-    const { accessToken, refreshToken } = req.user; // Get tokens from req.user
-    const posts = await postService.getPostsByUserId(req.params.userId);
+    const { accessToken, refreshToken } = req.user;
+    const posts = await postService.getPostsByUserId(req.user.id);
     if (!posts || posts.length === 0) {
       return res.sendResponse(404, false, `No posts found for User with ID ${req.params.userId}`);
     }

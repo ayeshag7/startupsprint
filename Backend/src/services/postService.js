@@ -47,7 +47,7 @@ const getAllPosts = async (loggedInUserID) => {
 
 // Get Post by ID
 const getPostById = async (id) => {
-  const post = await Post.findById(id).populate('userID', 'name');
+  const post = await Post.findById(id).populate('userID', 'name profilephoto');
   if (!post) {
     throw new Error(`Post with ID ${id} not found`);
   }
@@ -56,11 +56,34 @@ const getPostById = async (id) => {
 
 // Get Posts by User ID
 const getPostsByUserId = async (userId) => {
-  const posts = await Post.find({ userID: userId });
+  const posts = await Post.find({ userID: userId }).populate('userID', 'name profilephoto');
   if (!posts || posts.length === 0) {
     throw new Error(`No posts found for User with ID ${userId}`);
   }
-  return posts;
+
+  const postsWithLikeStatus = await Promise.all(posts.map(async (post) => {
+    const likedPost = await PostLike.findOne({
+      userID: userId,
+      postID: post._id,
+    });
+    
+    return {
+      _id: post._id,
+      user: {
+        _id: post.userID._id,
+        name: post.userID.name,
+        profilephoto: post.userID.profilephoto,
+      },
+      posttext: post.posttext,
+      postphoto: post.postphoto,
+      likecount:post.likecount,
+      privacy: post.privacy,
+      updatedAt: post.updatedAt,
+      liked: likedPost ? true : false,
+    };
+  }));
+  
+  return postsWithLikeStatus;
 };
 
 // Update Post

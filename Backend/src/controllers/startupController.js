@@ -124,7 +124,6 @@ const getStartupsByUserId = async (req, res) => {
   try {
     const { accessToken, refreshToken } = req.user;
     const userId = req.user.id;
-    
     const startups = await startupService.getStartupsByUserId(userId);
     if (!startups || startups.length === 0) {
       return res.sendResponse(404, false, `No startups found for user with ID ${userId}`);
