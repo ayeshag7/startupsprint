@@ -31,6 +31,7 @@ const messageRoutes = require('./src/routes/messageRoutes.js');
 const conversationRoutes = require('./src/routes/conversationRoutes.js');
 const investmentRoutes = require('./src/routes/investmentRoutes.js');
 const startupRoutes = require('./src/routes/startupRoutes.js');
+const requestRoutes = require('./src/routes/requestRoutes.js');
 
 app.use('/auth', authRoutes);
 app.use('/protected/users', userRoutes);
@@ -39,6 +40,7 @@ app.use('/protected/message', messageRoutes);
 app.use('/protected/conversation', conversationRoutes);
 app.use('/protected/investment', investmentRoutes);
 app.use('/protected/startups', startupRoutes);
+app.use('/protected/requets', requestRoutes);
 
 const port = process.env.PORT || 3000;
 
