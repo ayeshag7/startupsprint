@@ -92,13 +92,12 @@
    - Add the following details:
      ```env
      PORT=3000
-     MONGODB_CONNECT="<MongoDB connection string>"
-     ACCESS_TOKEN_SECRET="<Your access token secret>"
-     REFRESH_TOKEN_SECRET="<Your refresh token secret>"
-     PASSWORD="<Your email password>"
-     USER="<Your email address>"
+     MONGODB_CONNECT=<MongoDB connection string>
+     ACCESS_TOKEN_SECRET=<Your access token secret>
+     REFRESH_TOKEN_SECRET=<Your refresh token secret>
+     PASSWORD=<Your email password>
+     USER=<Your email address>
      ```
-
 5. Start the backend server:
    ```bash
    npm run dev
@@ -119,7 +118,6 @@
      ```env
      VITE_BASE_URL=http://localhost:3000/
      ```
-
 4. Start the frontend development server:
    ```bash
    npm run dev
@@ -134,7 +132,7 @@
 - **Body**:
   ```json
   {
-    "Name": "string",
+    "name": "string",
     "email": "string",
     "password": "string",
     "gender": "string"
@@ -238,6 +236,6 @@ frontend/
 ## Future Enhancements
 - **Comprehensive Payment Integration**: Secure payment gateways for processing investments.
 - **Feedback System**: Enable users to rate startups and provide reviews.
-- **Recommendation System**: Will implement AI Based Recommendation System to the user
+- **Recommendation System**: AI-based recommendations for users.
 
 ---
