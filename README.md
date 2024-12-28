@@ -1,4 +1,3 @@
-
 ---
 
 # Startupsprint 
@@ -37,6 +36,36 @@
 ### Analytics and Insights
 - **User Dashboard**: Overview of user activity and interactions.
 - **Startup Insights**: Performance metrics to help startups analyze their progress.
+
+---
+
+## Tech Stack
+**Frontend**:  
+- React.js  
+- Vite  
+- Tailwind CSS  
+
+**Backend**:  
+- Node.js  
+- Express.js  
+
+**Database**:  
+- MongoDB  
+
+**Authentication**:  
+- JSON Web Tokens (JWT)  
+
+**Real-Time Communication**:  
+- Socket.IO  
+
+**Deployment**:  
+- Frontend: Vercel  
+- Backend: Render  
+
+**Tools**:  
+- Postman for API testing  
+- Git for version control  
+- VS Code for development  
 
 ---
 
@@ -209,4 +238,6 @@ frontend/
 ## Future Enhancements
 - **Comprehensive Payment Integration**: Secure payment gateways for processing investments.
 - **Feedback System**: Enable users to rate startups and provide reviews.
-- ****
+- **Recommendation System**: Will implement AI Based Recommendation System to the user
+
+---
