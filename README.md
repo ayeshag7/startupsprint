@@ -62,8 +62,8 @@
 - **Socket.IO**
 
 ## Deployment
-- **Frontend**: Vercel
-- **Backend**: Render
+- **Frontend**: AWS
+- **Backend**: AWS
 
 ## Tools
 - **Postman** for API testing
