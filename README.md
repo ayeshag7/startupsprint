@@ -40,6 +40,38 @@
 
 ---
 
+
+# Tech Stack
+
+## Frontend
+- **React.js**
+- **Vite**
+- **Tailwind CSS**
+
+## Backend
+- **Node.js**
+- **Express.js**
+
+## Database
+- **MongoDB**
+
+## Authentication
+- **JSON Web Tokens (JWT)**
+
+## Real-Time Communication
+- **Socket.IO**
+
+## Deployment
+- **Frontend**: Vercel
+- **Backend**: Render
+
+## Tools
+- **Postman** for API testing
+- **Git** for version control
+- **VS Code** for development
+
+
+
 ## Installation and Setup
 ### Prerequisites
 - **Node.js** and **npm** installed.
